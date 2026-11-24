@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TechStore - Loja de eletrônicos e acessórios">
+  <title>TechStore - E-commerce</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h2>TechStore</h2>
+    <div class="nav-actions">
+      <span id="user-greeting">Visitante</span>
+      <button class="outline" id="btn-auth" onclick="toggleModal('auth-modal')">Entrar / Cadastrar</button>
+      <button aria-label="Abrir carrinho" onclick="toggleModal('cart-modal')">Carrinho (<span id="cart-count">0</span>)</button>
+    </div>
+  </header>
+  <main>
+    <h1 style="margin-bottom: 1.5rem;">Produtos em Destaque</h1>
+    <div id="product-grid" class="grid" aria-live="polite">Carregando produtos do servidor...</div>
+  </main>
+  <!-- Modal de Login/Cadastro -->
+  <div id="auth-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="auth-title">Entrar</h3>
+        <button class="outline" aria-label="Fechar" onclick="toggleModal('auth-modal')">X</button>
+      </div>
+      <form id="auth-form" onsubmit="handleAuth(event)" novalidate>
+        <div id="name-field" style="display: none;">
+          <label for="auth-name">Nome Completo</label>
+          <input type="text" id="auth-name" placeholder="Seu nome" autocomplete="name">
+        </div>
+        <label for="auth-email">E-mail</label>
+        <input type="email" id="auth-email" required placeholder="email@exemplo.com" autocomplete="email">
+        <label for="auth-password">Senha</label>
+        <input type="password" id="auth-password" required placeholder="******" autocomplete="current-password" minlength="6">
+        <button type="submit" style="width: 100%;" id="auth-submit">Entrar</button>
+      </form>
+      <p style="margin-top: 1rem; text-align: center; font-size: 0.9rem;">
+        <a href="#" onclick="switchAuthMode(event)" id="auth-switch">Não tem conta? Cadastre-se</a>
+      </p>
+    </div>
+  </div>
+  <!-- Modal do Carrinho -->
+  <div id="cart-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="cart-title">Seu Carrinho</h3>
+        <button class="outline" aria-label="Fechar" onclick="toggleModal('cart-modal')">X</button>
+      </div>
+      <div id="cart-items"></div>
+      <div class="total">Total: <span id="cart-total">R$ 0,00</span></div>
+      <button style="width: 100%;" onclick="checkout()">Finalizar Compra</button>
+    </div>
+  </div>
+  <script src="./script.js" defer></script>
+</body>
+</html>
